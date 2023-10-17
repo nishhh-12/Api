@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Update Data</title>
+</head>
+<body>
+  <h1>Update Data</h1>
+  <button id="yesButton">Yes</button>
+  <button id="noButton">No</button>
+
+  <script>
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+
+    // Event listener for the "Yes" button
+    yesButton.addEventListener('click', () => {
+      updateData(true);
+    });
+
+    // Event listener for the "No" button
+    noButton.addEventListener('click', () => {
+      updateData(false);
+    });
+
+    // Function to update the data in the backend
+    async function updateData(value) {
+      try {
+        const response = await fetch('http://localhost:3000/UpdateData', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ value }),
+        });
+
+        if (response.ok) {
+          console.log('Data updated successfully');
+        } else {
+          console.error('Failed to update data');
+        }
+      } catch (error) {
+        console.error('Error updating data:', error);
+      }
+    }
+  </script>
+</body>
+</html>
